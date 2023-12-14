@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class NovoDeckTest {
     Logger logger = LoggerFactory.getLogger(NovoDeckTest.class);
     @Test
-    @DisplayName("Verifica se o deck foi realmente comprado")
+    @DisplayName("Verifica se o um deck novo foi realmente comprado")
     public void compraDeck(){
         DeckUtil deckUtil = new DeckUtil();
         Deck deck = deckUtil.novoBaralho();

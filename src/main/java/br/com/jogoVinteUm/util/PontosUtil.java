@@ -1,7 +1,9 @@
-package br.com.jogoVinteUm.models;
+package br.com.jogoVinteUm.util;
 
-public abstract class Pontos {
-    public static int getValorNumerico(CartaComprada carta) {
+import br.com.jogoVinteUm.models.CartaComprada;
+
+public abstract class PontosUtil {
+    public static int calculaPontosObtidos(CartaComprada carta) {
         switch (carta.getValor()) {
             case "2": case "3": case "4": case "5":
             case "6": case "7": case "8": case "9":
