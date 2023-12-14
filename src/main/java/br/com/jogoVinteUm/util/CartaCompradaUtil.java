@@ -11,9 +11,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static br.com.jogoVinteUm.util.InterfaceUtil.imprimirStatusCode;
+
 public class CartaCompradaUtil {
-    public CartaComprada cartaComprada(Deck deck){
-        String uri = "https://deckofcardsapi.com/api/deck/" + deck.getDeck_id() +"/draw/?count=1";
+    public CartaComprada cartaComprada(Deck deck, int quantidade){
+        if(quantidade <= 0 || quantidade >51){
+            throw new RuntimeException("Quantidade Inválida");
+        }
+        String uri = "https://deckofcardsapi.com/api/deck/" + deck.getDeck_id() +"/draw/?count=" + quantidade;
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .GET()
@@ -22,6 +27,10 @@ public class CartaCompradaUtil {
                     .build();
             HttpClient client = HttpClient.newBuilder().build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            imprimirStatusCode(response);
+            if(response.statusCode() != 200){
+                throw new RuntimeException(response.body());
+            }
             ObjectMapper objectMapper = new ObjectMapper();
             CartaComprada cartaComprada = objectMapper.readValue(response.body(), CartaComprada.class);
             return cartaComprada;

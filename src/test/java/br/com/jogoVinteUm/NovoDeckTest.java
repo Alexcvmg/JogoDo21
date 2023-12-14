@@ -18,7 +18,7 @@ public class NovoDeckTest {
     public void compraDeck(){
         DeckUtil deckUtil = new DeckUtil();
         Deck deck = deckUtil.novoBaralho();
-        assertEquals(true,deck.isSuccess());
+        assertTrue(deck.isSuccess());
         logger.info("Passou no teste e foi criado um deck novo!");
 
     }
@@ -28,9 +28,20 @@ public class NovoDeckTest {
         DeckUtil deckUtil = new DeckUtil();
         Deck deck = deckUtil.novoBaralho();
         CartaCompradaUtil cartaCompradaUtil = new CartaCompradaUtil();
-        CartaComprada cartaComprada = cartaCompradaUtil.cartaComprada(deck);
-        assertEquals(true,cartaComprada.isSuccess());
+        CartaComprada cartaComprada = cartaCompradaUtil.cartaComprada(deck,1);
+        assertTrue(cartaComprada.isSuccess());
         logger.info("Passou no teste e a carta foi comprada!");
 
+    }
+    @Test
+    @DisplayName("Testa se passar um valor negativo de cartas a serem compradas")
+    public void testarCompraNegativa(){
+        DeckUtil deckUtil = new DeckUtil();
+        Deck deck = deckUtil.novoBaralho();
+        CartaCompradaUtil cartaCompradaUtil = new CartaCompradaUtil();
+        assertThrows(RuntimeException.class, () ->{
+           cartaCompradaUtil.cartaComprada(deck,-5);
+        });
+        logger.info("Passou no teste e lançou a exceção!");
     }
 }

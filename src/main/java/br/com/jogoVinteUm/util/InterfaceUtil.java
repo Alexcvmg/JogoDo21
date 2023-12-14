@@ -1,30 +1,58 @@
 package br.com.jogoVinteUm.util;
 
+import br.com.jogoVinteUm.models.CartaComprada;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.http.HttpResponse;
+
+import static br.com.jogoVinteUm.util.PontosUtil.calculaPontosObtidos;
+
 public abstract class InterfaceUtil {
+    private static Logger  logger = LoggerFactory.getLogger(InterfaceUtil.class);
     public static void mensagemInicial(){
-        System.out.println("************************************************");
-        System.out.println("****** Bem-vindo ao Jogo de 21 Individual ******");
-        System.out.println("****   Some pontos até dar 21 ou estourar   ****");
-        System.out.println("************************************************");
+        logger.info("************************************************");
+        logger.info("****** Bem-vindo ao Jogo de 21 Individual ******");
+        logger.info("****   Some pontos até dar 21 ou estourar   ****");
+        logger.info("************************************************");
+        logger.info("                                                 ");
+
     }
 
     public static void  mensagemDeOpcao(){
-        System.out.println("******************* Escolha: *******************");
-        System.out.println("1: Comprar uma carta");
-        System.out.println("2: Parar");
-        System.out.println("************************************************");
+        logger.info("******************* Escolha: *******************");
+        logger.info("1: Comprar uma carta");
+        logger.info("2: Parar");
+        logger.info("************************************************");
     }
 
     public static void jogoFinalizadoAntes(int pontos){
-        System.out.println("Fim do Programa!");
-        System.out.println("Pontos Obtidos: " + pontos + " pontos");
+        logger.info("Fim do Programa!");
+        logger.info("Pontos Obtidos: " + pontos + " pontos");
     }
 
     public static void jogoVencido(int pontos){
-        System.out.println("Parabens! Você venceu, obteve os 21 pontos!");
+        logger.info("Parabens! Você venceu, obteve os 21 pontos!");
     }
 
     public static void jogoEstourado(){
-        System.out.println("Estourou! Você ultrapassou os 21 pontos!");
+        logger.info("Estourou! Você ultrapassou os 21 pontos!");
+    }
+
+    public static void pontosObtidos(CartaComprada carta, int pontos){
+        logger.info("Obteve " + calculaPontosObtidos(carta) + " pontos");
+        logger.info("Pontos Totais: " + pontos + " pontos");
+    }
+
+    public static void mostrarCartaComprada(CartaComprada carta){
+        logger.info(carta.toString());
+    }
+
+    public static void imprimirStatusCode(HttpResponse<String> response){
+        logger.info("Status Code: " + response.statusCode());
+    }
+
+    public static void opcaoInvalida(){
+        logger.info("Opção Inválida!");
     }
 }

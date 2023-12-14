@@ -12,20 +12,19 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int escolha;
+        String escolha;
         int pontos = 0;
         CartaComprada carta;
         mensagemInicial();
 
         while (pontos < 21){
             mensagemDeOpcao();
-            escolha = sc.nextInt();
-            if(escolha == 1){
+            escolha = sc.next();
+            if(escolha.equals("1")){
                 carta = comprarCarta();
-                System.out.println(carta);
-                System.out.println("Obteve " + calculaPontosObtidos(carta) + " pontos");
+                mostrarCartaComprada(carta);
                 pontos += calculaPontosObtidos(carta);
-                System.out.println("Pontos Totais: " + pontos + " pontos");
+                pontosObtidos(carta, pontos);
                 if(pontos > 21){
                     jogoEstourado();
                     break;
@@ -33,9 +32,11 @@ public class main {
                     jogoVencido(pontos);
                     break;
                 }
-            }else{
+            }else if(escolha.equals("2")){
                 jogoFinalizadoAntes(pontos);
                 break;
+            }else{
+                opcaoInvalida();
             }
         }
        }

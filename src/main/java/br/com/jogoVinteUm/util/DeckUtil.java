@@ -10,6 +10,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static br.com.jogoVinteUm.util.InterfaceUtil.imprimirStatusCode;
+
 public class DeckUtil {
     public Deck novoBaralho(){
         String uri = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
@@ -21,6 +23,10 @@ public class DeckUtil {
                     .build();
             HttpClient client = HttpClient.newBuilder().build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            imprimirStatusCode(response);
+            if(response.statusCode() != 200){
+                throw new RuntimeException(response.body());
+            }
             ObjectMapper objectMapper = new ObjectMapper();
             Deck deck = objectMapper.readValue(response.body(), Deck.class);
             return deck;
